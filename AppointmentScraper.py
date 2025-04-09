@@ -1,4 +1,5 @@
 import time
+import datetime
 import requests
 from bs4 import BeautifulSoup
 from plyer import notification
@@ -23,12 +24,12 @@ def check_termine():
         if card_body:
             text = card_body.get_text(strip=True)
             if INFO in text:
-                print("Keine Termine verfügbar.")
+                print(datetime.datetime.now().strftime("%d.%m.%Y %H:%M"), "Keine Termine verfügbar.")
             else:
-                print("Termine verfügbar!")
+                print(datetime.datetime.now().strftime("%d.%m.%Y %H:%M"), "Text hat sich geändert. Termine verfügbar?")
                 notification.notify(title="Termin verfügbar!", message="Termine verfügbar!", timeout=20)
         else:
-            print("Kein <div class='card-body'> gefunden.")
+            print(datetime.datetime.now().strftime("%d.%m.%Y %H:%M"),"Kein <div class='card-body'> gefunden. Terminpicker verfügbar?")
             notification.notify(title="Something changed", message="Termine verfügbar?", timeout=20)
 
     except Exception as e:
